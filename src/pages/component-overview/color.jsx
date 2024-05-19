@@ -1,0 +1,278 @@
+import PropTypes from 'prop-types';
+// material-ui
+// import Link from '@mui/material/Link';
+import Stack from '@mui/material/Stack';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+
+// third-party
+import { NumericFormat } from 'react-number-format';
+
+// project import
+import Dot from 'components/@extended/Dot';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton } from '@mui/material';
+import { useState } from 'react';
+import styled from '@emotion/styled';
+
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+  '& .MuiDialogContent-root': {
+    padding: theme.spacing(2)
+  },
+  '& .MuiDialogActions-root': {
+    padding: theme.spacing(1)
+  }
+}));
+
+function createData(tracking_no, name, fat, carbs, protein) {
+  return { tracking_no, name, fat, carbs, protein };
+}
+
+const rows = [
+  createData(84564564, '192.35.2.1', '192.40.2.1', 2, 6),
+  createData(98756325, '192.35.2.1', '192.40.2.1', 1, 4),
+  createData(98632366, '192.35.2.1', '192.40.2.1', 1, 2),
+  createData(13256498, '192.35.2.1', '192.40.2.1', 2, 1),
+  createData(13586564, '192.35.2.1', '192.40.2.1', 1, 2),
+  createData(98672366, '192.35.2.1', '192.40.2.1', 1, 2),
+  createData(98753263, '192.35.2.1', '192.40.2.1', 2, 5),
+  createData(98753275, '192.35.2.1', '192.40.2.1', 1, 7)
+];
+
+function descendingComparator(a, b, orderBy) {
+  if (b[orderBy] < a[orderBy]) {
+    return -1;
+  }
+  if (b[orderBy] > a[orderBy]) {
+    return 1;
+  }
+  return 0;
+}
+
+function getComparator(order, orderBy) {
+  return order === 'desc' ? (a, b) => descendingComparator(a, b, orderBy) : (a, b) => -descendingComparator(a, b, orderBy);
+}
+
+function stableSort(array, comparator) {
+  const stabilizedThis = array.map((el, index) => [el, index]);
+  stabilizedThis.sort((a, b) => {
+    const order = comparator(a[0], b[0]);
+    if (order !== 0) {
+      return order;
+    }
+    return a[1] - b[1];
+  });
+  return stabilizedThis.map((el) => el[0]);
+}
+
+const headCells = [
+  {
+    id: 'tracking_no',
+    align: 'left',
+    disablePadding: false,
+    label: 'Flow No.'
+  },
+  {
+    id: 'name',
+    align: 'left',
+    disablePadding: true,
+    label: 'Source IP'
+  },
+  {
+    id: 'fat',
+    align: 'right',
+    disablePadding: false,
+    label: 'Destination IP'
+  },
+  {
+    id: 'carbs',
+    align: 'left',
+    disablePadding: false,
+
+    label: 'Status'
+  },
+  {
+    id: 'protein',
+    align: 'right',
+    disablePadding: false,
+    label: 'Protocol'
+  }
+];
+
+// ==============================|| ORDER TABLE - HEADER ||============================== //
+
+function OrderTableHead({ order, orderBy }) {
+  return (
+    <TableHead>
+      <TableRow>
+        {headCells.map((headCell) => (
+          <TableCell
+            key={headCell.id}
+            align={headCell.align}
+            padding={headCell.disablePadding ? 'none' : 'normal'}
+            sortDirection={orderBy === headCell.id ? order : false}
+          >
+            {headCell.label}
+          </TableCell>
+        ))}
+      </TableRow>
+    </TableHead>
+  );
+}
+
+function OrderStatus({ status }) {
+  let color;
+  let title;
+
+  switch (status) {
+    case 0:
+      color = 'warning';
+      title = 'Pending';
+      break;
+    case 1:
+      color = 'success';
+      title = 'Normal';
+      break;
+    case 2:
+      color = 'error';
+      title = 'Abnormal';
+      break;
+    default:
+      color = 'primary';
+      title = 'None';
+  }
+
+  return (
+    <Stack direction="row" spacing={1} alignItems="center">
+      <Dot color={color} />
+      <Typography>{title}</Typography>
+    </Stack>
+  );
+}
+
+// ==============================|| ORDER TABLE ||============================== //
+
+export default function OrderTable() {
+  const order = 'asc';
+  const orderBy = 'tracking_no';
+  const [open, setOpen] = useState(false);
+
+  function handleOpen() {
+    setOpen((prev) => !prev);
+  }
+
+  return (
+    <Box>
+      <TableContainer
+        sx={{
+          width: '100%',
+          overflowX: 'auto',
+          position: 'relative',
+          display: 'block',
+          maxWidth: '100%',
+          '& td, & th': { whiteSpace: 'nowrap' }
+        }}
+      >
+        <Table aria-labelledby="tableTitle">
+          <OrderTableHead order={order} orderBy={orderBy} />
+          <TableBody>
+            {stableSort(rows, getComparator(order, orderBy)).map((row, index) => {
+              const labelId = `enhanced-table-checkbox-${index}`;
+
+              return (
+                <TableRow
+                  hover
+                  role="checkbox"
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  tabIndex={-1}
+                  key={row.tracking_no}
+                >
+                  <TableCell component="th" id={labelId} scope="row">
+                    <Button color="secondary" onClick={handleOpen}>
+                      {' '}
+                      {row.tracking_no}
+                    </Button>
+                  </TableCell>
+                  <TableCell>{row.name}</TableCell>
+                  <TableCell align="right">{row.fat}</TableCell>
+                  <TableCell>
+                    <OrderStatus status={row.carbs} />
+                  </TableCell>
+                  <TableCell align="right">
+                    <NumericFormat value={row.protein} displayType="text" thousandSeparator />
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <BootstrapDialog onClose={handleOpen} aria-labelledby="customized-dialog-title" open={open}>
+        <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
+          Flow Details
+        </DialogTitle>
+        <IconButton
+          aria-label="close"
+          onClick={handleOpen}
+          sx={{
+            position: 'absolute',
+            right: 8,
+            top: 8,
+            color: (theme) => theme.palette.grey[500]
+          }}
+        >
+          {/* <CloseIcon /> */}
+        </IconButton>
+        <DialogContent dividers>
+          <Typography variant="h4">Flow Number : 14577346</Typography>
+          <Box
+            sx={{
+              display: 'grid',
+              columnGap: 3,
+              rowGap: 1,
+              gridTemplateColumns: 'repeat(3, 1fr)',
+              mt: 2
+            }}
+          >
+            <Typography variant="p">Source IP: 192.12.3.6</Typography>
+            <Typography variant="p">Source Port: 345</Typography>
+            <Typography variant="p">Destination IP: 192.12.3.6</Typography>
+          </Box>
+          <Box
+            sx={{
+              display: 'grid',
+              columnGap: 3,
+              rowGap: 1,
+              gridTemplateColumns: 'repeat(3, 1fr)',
+              mb: 2
+            }}
+          >
+            <Typography variant="p">Destination Port: 746</Typography>
+            <Typography variant="p">Protocol: 6</Typography>
+            <Typography variant="p">Timestamp: 11/22/2024 12:34:56</Typography>
+          </Box>
+          <Typography gutterBottom>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates modi incidunt, officia officiis sunt recusandae assumenda
+            illum fuga vel iure asperiores veniam consequuntur numquam cum odio quod placeat, ex non. Nisi, consequatur ea quidem facilis
+            dolore commodi vero iusto eligendi harum sit enim nesciunt id eos quae illum! Harum mollitia qui tempora! Ratione, voluptates!
+            Molestias repudiandae id aperiam architecto dolore!
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button autoFocus onClick={handleOpen}>
+            Close
+          </Button>
+        </DialogActions>
+      </BootstrapDialog>
+    </Box>
+  );
+}
+
+OrderTableHead.propTypes = { order: PropTypes.any, orderBy: PropTypes.string };
+
+OrderStatus.propTypes = { status: PropTypes.number };
