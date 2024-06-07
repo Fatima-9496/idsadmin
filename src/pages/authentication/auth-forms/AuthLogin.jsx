@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 // material-ui
 import Button from '@mui/material/Button';
@@ -27,11 +28,10 @@ import AnimateButton from 'components/@extended/AnimateButton';
 // assets
 import EyeOutlined from '@ant-design/icons/EyeOutlined';
 import EyeInvisibleOutlined from '@ant-design/icons/EyeInvisibleOutlined';
-import FirebaseSocial from './FirebaseSocial';
-
 // ============================|| JWT - LOGIN ||============================ //
 
 export default function AuthLogin({ isDemo = false }) {
+  const navigate = useNavigate();
   const [checked, setChecked] = React.useState(false);
 
   const [showPassword, setShowPassword] = React.useState(false);
@@ -55,6 +55,32 @@ export default function AuthLogin({ isDemo = false }) {
           email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
           password: Yup.string().max(255).required('Password is required')
         })}
+        onSubmit={async (values) => {
+          if (values.email == 'fatumaabayneh093@gmail.com' && values.password == '123') {
+            navigate('/dashboard/default');
+          }
+          else {
+            alert('Invalid credentials');
+          }
+          // try {
+          //   const response = await fetch('http://localhost:3000/login', {
+          //     method: 'POST',
+          //     headers: {
+          //       'Content-Type': 'application/json'
+          //     },
+          //     body: JSON.stringify(values)
+          //   });
+          //   const data = await response.json();
+          //   if (data.success) {
+          //     const navigate = useNavigate();
+          //     navigate('/dashboard');
+          //   } else {
+          //     alert('Invalid credentials');
+          //   }
+          // } catch (error) {
+          //   alert('An error occurred. Please try again later.');
+          // }
+        }}
       >
         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
           <form noValidate onSubmit={handleSubmit}>
@@ -129,9 +155,9 @@ export default function AuthLogin({ isDemo = false }) {
                     }
                     label={<Typography variant="h6">Keep me sign in</Typography>}
                   />
-                  <Link variant="h6" component={RouterLink} color="text.primary">
+                  {/* <Link variant="h6" component={RouterLink} color="text.primary">
                     Forgot Password?
-                  </Link>
+                  </Link> */}
                 </Stack>
               </Grid>
               {errors.submit && (
@@ -146,14 +172,7 @@ export default function AuthLogin({ isDemo = false }) {
                   </Button>
                 </AnimateButton>
               </Grid>
-              <Grid item xs={12}>
-                <Divider>
-                  <Typography variant="caption"> Login with</Typography>
-                </Divider>
-              </Grid>
-              <Grid item xs={12}>
-                <FirebaseSocial />
-              </Grid>
+
             </Grid>
           </form>
         )}

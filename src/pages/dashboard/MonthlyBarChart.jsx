@@ -44,15 +44,14 @@ const barChartOptions = {
 
 // ==============================|| MONTHLY BAR CHART ||============================== //
 
-export default function MonthlyBarChart() {
+export default function MonthlyBarChart(props) {
   const theme = useTheme();
-
   const { primary, secondary } = theme.palette.text;
   const info = theme.palette.info.light;
 
   const [series] = useState([
     {
-      data: [80, 95, 70, 42, 65, 55, 78]
+      data: props.item
     }
   ]);
 

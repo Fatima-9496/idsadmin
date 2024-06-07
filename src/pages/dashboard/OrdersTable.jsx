@@ -17,19 +17,7 @@ import { NumericFormat } from 'react-number-format';
 // project import
 import Dot from 'components/@extended/Dot';
 
-function createData(tracking_no, name, fat, carbs, protein) {
-  return { tracking_no, name, fat, carbs, protein };
-}
 
-const rows = [
-  createData(84564564, '192.35.2.1', '192.40.2.1', 2, 6),
-  createData(98756325, '192.35.2.1', '192.40.2.1', 1, 4),
-  createData(98652366, '192.35.2.1', '192.40.2.1', 1, 2),
-  createData(13286564, '192.35.2.1', '192.40.2.1', 1, 2),
-  createData(13256498, '192.35.2.1', '192.40.2.1', 2, 1),
-  createData(98753263, '192.35.2.1', '192.40.2.1', 2, 5),
-  createData(98753275, '192.35.2.1', '192.40.2.1', 1, 7),
-];
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -144,7 +132,7 @@ function OrderStatus({ status }) {
 
 // ==============================|| ORDER TABLE ||============================== //
 
-export default function OrderTable() {
+export default function OrderTable(props) {
   const order = 'asc';
   const orderBy = 'tracking_no';
 
@@ -163,7 +151,7 @@ export default function OrderTable() {
         <Table aria-labelledby="tableTitle">
           <OrderTableHead order={order} orderBy={orderBy} />
           <TableBody>
-            {stableSort(rows, getComparator(order, orderBy)).map((row, index) => {
+            {stableSort(props.item, getComparator(order, orderBy)).map((row, index) => {
               const labelId = `enhanced-table-checkbox-${index}`;
 
               return (
