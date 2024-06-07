@@ -10,7 +10,7 @@ const Shadow = Loadable(lazy(() => import('pages/component-overview/shadows')));
 const DashboardDefault = Loadable(lazy(() => import('pages/dashboard/index')));
 
 // render - sample page
-const SamplePage = Loadable(lazy(() => import('pages/extra-pages/sample-page')));
+const SamplePage = Loadable(lazy(() => import('pages/extra-pages/ip-List')));
 const Blacklist = Loadable(lazy(() => import('pages/extra-pages/blacklist')));
 
 // ==============================|| MAIN ROUTING ||============================== //
@@ -37,7 +37,7 @@ const MainRoutes = {
       ]
     },
     {
-      path: 'sample-page',
+      path: 'ip-List',
       element: <SamplePage />
     },
     {

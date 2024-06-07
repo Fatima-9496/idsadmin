@@ -22,7 +22,7 @@ const icons = {
 
 const utilities = {
   id: 'utilities',
-  title: 'Users',
+  // title: 'Users',
   type: 'group',
   children: [
     {

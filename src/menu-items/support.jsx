@@ -11,14 +11,14 @@ const icons = {
 
 const support = {
   id: 'support',
-  title: 'service',
+  // title: 'service',
   type: 'group',
   children: [
     {
-      id: 'sample-page',
+      id: 'ip-List',
       title: 'List of IP',
       type: 'item',
-      url: '/sample-page',
+      url: '/ip-List',
       icon: icons.ChromeOutlined
     },
     {
