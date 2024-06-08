@@ -7,7 +7,6 @@ import PrivateRoute from './PrivateRoute';
 // Lazy loading components
 const ApprovedUsers = Loadable(lazy(() => import('pages/component-overview/approvedUsers')));
 const PendingUsers = Loadable(lazy(() => import('pages/component-overview/pendingUsers')));
-const Shadow = Loadable(lazy(() => import('pages/component-overview/shadows')));
 const DashboardDefault = Loadable(lazy(() => import('pages/dashboard/index')));
 
 // Render - sample page
@@ -43,10 +42,6 @@ const MainRoutes = {
     {
       path: 'blacklist',
       element: <PrivateRoute element={<Blacklist />} />
-    },
-    {
-      path: 'shadow',
-      element: <PrivateRoute element={<Shadow />} />
     },
     {
       path: 'pendingUsers',

@@ -9,7 +9,6 @@ import { Navigate } from 'react-router-dom';
 import MainCard from 'components/MainCard';
 import AnalyticEcommerce from 'components/cards/statistics/AnalyticEcommerce';
 import MonthlyBarChart from './MonthlyBarChart';
-import UniqueVisitorCard from './UniqueVisitorCard';
 import OrdersTable from './OrdersTable';
 import { useEffect, useState } from 'react';
 
