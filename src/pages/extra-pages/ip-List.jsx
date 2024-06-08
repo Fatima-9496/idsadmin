@@ -11,13 +11,11 @@ import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// third-party
-import { NumericFormat } from 'react-number-format';
+import { useEffect, useState } from 'react';
 
 // project import
 import Dot from 'components/@extended/Dot';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton } from '@mui/material';
-import { useState } from 'react';
 import styled from '@emotion/styled';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -29,9 +27,6 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   }
 }));
 
-function createData(tracking_no, name, fat, carbs, protein) {
-  return { tracking_no, name, fat, carbs, protein };
-}
 
 
 function descendingComparator(a, b, orderBy) {
@@ -74,20 +69,20 @@ const headCells = [
     label: 'Source IP'
   },
   {
-    id: 'fat',
+    id: 'destination_ip',
     align: 'right',
     disablePadding: false,
     label: 'Destination IP'
   },
   {
-    id: 'carbs',
+    id: 'ip_status',
     align: 'left',
     disablePadding: false,
 
     label: 'Status'
   },
   {
-    id: 'protein',
+    id: 'protocol',
     align: 'right',
     disablePadding: false,
     label: 'Action'
@@ -148,41 +143,49 @@ export default function OrderTable() {
   const orderBy = 'tracking_no';
   const [open, setOpen] = useState(false);
 
-  
-  function addtoBlacklist(id){
-    return function(){      
-      setRows(rows.map(row => row.id === id ? {...row, status: 2} : row));
-          // try {
-    //   const response = await fetch(`/api/blacklist/${id}`, {
-    //     method: 'POST',
-    //   });
 
-    //   if (response.ok) {
-    //     setRows(rows.map((row) => (row.id === id ? { ...row, status: 2 } : row)));
-    //   }
-    // } catch (error) {
-    //   console.error(error);
-    // }
+  function addtoBlacklist(id) {
+    return function () {
+      setRows(rows.map(row => row.id === id ? { ...row, status: 2 } : row));
+      // try {
+      //   const response = await fetch(`/api/blacklist/${id}`, {
+      //     method: 'POST',
+      //   });
+
+      //   if (response.ok) {
+      //     setRows(rows.map((row) => (row.id === id ? { ...row, status: 2 } : row)));
+      //   }
+      // } catch (error) {
+      //   console.error(error);
+      // }
     }
   }
-  
+
   const sampleItems = [
-    { id: 1, source_ip: '192.35.2.1', dest_ip:'192.35.2.1', status: 1 },
-    { id: 2, source_ip: '196.35.2.1', dest_ip:'192.35.2.1', status: 2 },
-    { id: 3, source_ip: '192.215.2.1', dest_ip:'192.35.2.1',  status:1 },
+    { id: 1, source_ip: '192.35.2.1', dest_ip: '192.35.2.1', status: 1 },
+    { id: 2, source_ip: '196.35.2.1', dest_ip: '192.35.2.1', status: 2 },
+    { id: 3, source_ip: '192.215.2.1', dest_ip: '192.35.2.1', status: 1 },
   ];
-  
-  const fetchData = async () => {
-    try {
-      // const response = await fetch('https://jsonplaceholder.typicode.com/posts');
-      // const data = await response.json();
-      setRows(sampleItems.map(item => createData(item.id, '192.35.2.1', '192.40.2.1', 1)));
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  
+
   const [rows, setRows] = useState(sampleItems);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/iplist');
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+        const data = await response.json();
+        setRows(data);
+      } catch (error) {
+        console.log('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
 
   return (
     <Box>
@@ -211,7 +214,7 @@ export default function OrderTable() {
                   key={row.id}
                 >
                   <TableCell component="th" id={labelId} scope="row">
-                      {row.id}
+                    {row.id}
                   </TableCell>
                   <TableCell>{row.source_ip}</TableCell>
                   <TableCell align="right">{row.dest_ip}</TableCell>
@@ -219,9 +222,9 @@ export default function OrderTable() {
                     <OrderStatus status={row.status} />
                   </TableCell>
                   {row.status !== 2 && (
-                  <TableCell align="right">
-                  <Button onClick={addtoBlacklist(row.id)} variant='contained'>Add blacklist</Button>
-                  </TableCell>)}
+                    <TableCell align="right">
+                      <Button onClick={addtoBlacklist(row.id)} variant='contained'>Add blacklist</Button>
+                    </TableCell>)}
                 </TableRow>
               );
             })}

@@ -17,7 +17,7 @@ import { NumericFormat } from 'react-number-format';
 // project import
 import Dot from 'components/@extended/Dot';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton } from '@mui/material';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -28,21 +28,6 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     padding: theme.spacing(1)
   }
 }));
-
-function createData(tracking_no, name, fat, carbs, protein) {
-  return { tracking_no, name, fat, carbs, protein };
-}
-
-const rows = [
-  createData(84564564, '192.35.2.1', '192.40.2.1', 2, 6),
-  createData(98756325, '192.35.2.1', '192.40.2.1', 1, 4),
-  createData(98632366, '192.35.2.1', '192.40.2.1', 1, 2),
-  createData(13256498, '192.35.2.1', '192.40.2.1', 2, 1),
-  createData(13586564, '192.35.2.1', '192.40.2.1', 1, 2),
-  createData(98672366, '192.35.2.1', '192.40.2.1', 1, 2),
-  createData(98753263, '192.35.2.1', '192.40.2.1', 2, 5),
-  createData(98753275, '192.35.2.1', '192.40.2.1', 1, 7)
-];
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -84,20 +69,20 @@ const headCells = [
     label: 'Source IP'
   },
   {
-    id: 'fat',
+    id: 'destination_ip',
     align: 'right',
     disablePadding: false,
     label: 'Destination IP'
   },
   {
-    id: 'carbs',
+    id: 'ip_status',
     align: 'left',
     disablePadding: false,
 
     label: 'Status'
   },
   {
-    id: 'protein',
+    id: 'protocol',
     align: 'right',
     disablePadding: false,
     label: 'Protocol'
@@ -165,6 +150,41 @@ export default function OrderTable() {
   function handleOpen() {
     setOpen((prev) => !prev);
   }
+  function createData(tracking_no, name, destination_ip, ip_status, protocol) {
+    return { tracking_no, name, destination_ip, ip_status, protocol };
+  }
+
+  const [tableRowsData, setTableRowsData] = useState([
+    ['84564564', '192.35.2.1', '192.40.2.1', '2', '6'],
+    ['98756325', '192.35.2.1', '192.40.2.1', '0', '4'],
+    ['98652366', '192.35.2.1', '192.40.2.1', '1', '2'],
+    ['13286564', '192.35.2.1', '192.40.0.1', '1', '2'],
+    ['13256498', '192.35.2.1', '192.40.2.1', '2', '1'],
+    ['98753263', '192.35.2.1', '192.40.2.1', '2', '5'],
+    ['98753275', '192.35.2.1', '192.40.2.1', '1', '7'],
+  ]);
+
+  const [tableRows, setTableRows] = useState(
+    tableRowsData.map(row => createData(...row))
+  );
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/approved_users');
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+        const data = await response.json();
+        setTableRows(
+          data.flowReport.map(row => createData(...row))
+        );
+      } catch (error) {
+        console.log('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <Box>
@@ -181,7 +201,7 @@ export default function OrderTable() {
         <Table aria-labelledby="tableTitle">
           <OrderTableHead order={order} orderBy={orderBy} />
           <TableBody>
-            {stableSort(rows, getComparator(order, orderBy)).map((row, index) => {
+            {stableSort(tableRows, getComparator(order, orderBy)).map((row, index) => {
               const labelId = `enhanced-table-checkbox-${index}`;
 
               return (
@@ -199,12 +219,12 @@ export default function OrderTable() {
                     </Button>
                   </TableCell>
                   <TableCell>{row.name}</TableCell>
-                  <TableCell align="right">{row.fat}</TableCell>
+                  <TableCell align="right">{row.destination_ip}</TableCell>
                   <TableCell>
-                    <OrderStatus status={row.carbs} />
+                    <OrderStatus status={row.ip_status} />
                   </TableCell>
                   <TableCell align="right">
-                    <NumericFormat value={row.protein} displayType="text" thousandSeparator />
+                    <NumericFormat value={row.protocol} displayType="text" thousandSeparator />
                   </TableCell>
                 </TableRow>
               );
@@ -212,63 +232,6 @@ export default function OrderTable() {
           </TableBody>
         </Table>
       </TableContainer>
-      <BootstrapDialog onClose={handleOpen} aria-labelledby="customized-dialog-title" open={open}>
-        <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-          Flow Details
-        </DialogTitle>
-        <IconButton
-          aria-label="close"
-          onClick={handleOpen}
-          sx={{
-            position: 'absolute',
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500]
-          }}
-        >
-          {/* <CloseIcon /> */}
-        </IconButton>
-        <DialogContent dividers>
-          <Typography variant="h4">Flow Number : 14577346</Typography>
-          <Box
-            sx={{
-              display: 'grid',
-              columnGap: 3,
-              rowGap: 1,
-              gridTemplateColumns: 'repeat(3, 1fr)',
-              mt: 2
-            }}
-          >
-            <Typography variant="p">Source IP: 192.12.3.6</Typography>
-            <Typography variant="p">Source Port: 345</Typography>
-            <Typography variant="p">Destination IP: 192.12.3.6</Typography>
-          </Box>
-          <Box
-            sx={{
-              display: 'grid',
-              columnGap: 3,
-              rowGap: 1,
-              gridTemplateColumns: 'repeat(3, 1fr)',
-              mb: 2
-            }}
-          >
-            <Typography variant="p">Destination Port: 746</Typography>
-            <Typography variant="p">Protocol: 6</Typography>
-            <Typography variant="p">Timestamp: 11/22/2024 12:34:56</Typography>
-          </Box>
-          <Typography gutterBottom>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates modi incidunt, officia officiis sunt recusandae assumenda
-            illum fuga vel iure asperiores veniam consequuntur numquam cum odio quod placeat, ex non. Nisi, consequatur ea quidem facilis
-            dolore commodi vero iusto eligendi harum sit enim nesciunt id eos quae illum! Harum mollitia qui tempora! Ratione, voluptates!
-            Molestias repudiandae id aperiam architecto dolore!
-          </Typography>
-        </DialogContent>
-        <DialogActions>
-          <Button autoFocus onClick={handleOpen}>
-            Close
-          </Button>
-        </DialogActions>
-      </BootstrapDialog>
     </Box>
   );
 }

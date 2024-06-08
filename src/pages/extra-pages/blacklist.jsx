@@ -11,13 +11,10 @@ import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// third-party
-import { NumericFormat } from 'react-number-format';
-
 // project import
 import Dot from 'components/@extended/Dot';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -29,8 +26,8 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   }
 }));
 
-function createData(tracking_no, name, fat, carbs, protein) {
-  return { tracking_no, name, fat, carbs, protein };
+function createData(tracking_no, name, destination_ip, ip_status, protocol) {
+  return { tracking_no, name, destination_ip, ip_status, protocol };
 }
 
 
@@ -74,20 +71,20 @@ const headCells = [
     label: 'Source IP'
   },
   {
-    id: 'fat',
+    id: 'destination_ip',
     align: 'right',
     disablePadding: false,
     label: 'Destination IP'
   },
   {
-    id: 'carbs',
+    id: 'ip_status',
     align: 'left',
     disablePadding: false,
 
     label: 'Status'
   },
   {
-    id: 'protein',
+    id: 'protocol',
     align: 'right',
     disablePadding: false,
     label: 'Action'
@@ -151,29 +148,36 @@ export default function OrderTable() {
   function handleOpen() {
     setOpen((prev) => !prev);
   }
-  function removeFromBlacklist(id){
-    return function(){      
+  function removeFromBlacklist(id) {
+    return function () {
       setRows(rows.filter((row) => row.id !== id));
     }
   }
-  
+  //Remove this sample item after backend completed
   const sampleItems = [
-    { id: 1, source_ip: '192.35.2.1', dest_ip:'192.35.2.1', status: 2 },
-    { id: 2, source_ip: '196.35.2.1', dest_ip:'192.35.2.1', status: 2 },
-    { id: 3, source_ip: '192.215.2.1', dest_ip:'192.35.2.1',  status:2 },
+    { id: 1, source_ip: '192.35.2.1', dest_ip: '192.35.2.1', status: 2 },
+    { id: 2, source_ip: '196.35.2.1', dest_ip: '192.35.2.1', status: 2 },
+    { id: 3, source_ip: '192.215.2.1', dest_ip: '192.35.2.1', status: 2 },
   ];
-  
-  const fetchData = async () => {
-    try {
-      // const response = await fetch('https://jsonplaceholder.typicode.com/posts');
-      // const data = await response.json();
-      setRows(sampleItems.map(item => createData(item.id, '192.35.2.1', '192.40.2.1', 1)));
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  
+  //END Remove this sample item after backend completed
   const [rows, setRows] = useState(sampleItems);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/blacklists');
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+        const data = await response.json();
+        setRows(data);
+      } catch (error) {
+        console.log('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <Box>
@@ -213,7 +217,7 @@ export default function OrderTable() {
                     <OrderStatus status={row.status} />
                   </TableCell>
                   <TableCell align="right">
-                  <Button onClick={removeFromBlacklist(row.id)} variant='contained' color='error'>Remove from blackist</Button>
+                    <Button onClick={removeFromBlacklist(row.id)} variant='contained' color='error'>Remove from blackist</Button>
                   </TableCell>
                 </TableRow>
               );

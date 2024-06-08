@@ -59,20 +59,20 @@ const headCells = [
     label: 'Source IP'
   },
   {
-    id: 'fat',
+    id: 'destination_ip',
     align: 'right',
     disablePadding: false,
     label: 'Destination IP'
   },
   {
-    id: 'carbs',
+    id: 'ip_status',
     align: 'left',
     disablePadding: false,
 
     label: 'Status'
   },
   {
-    id: 'protein',
+    id: 'protocol',
     align: 'right',
     disablePadding: false,
     label: 'Protocol'
@@ -166,12 +166,12 @@ export default function OrderTable(props) {
                     <Link color="secondary"> {row.tracking_no}</Link>
                   </TableCell>
                   <TableCell>{row.name}</TableCell>
-                  <TableCell align="right">{row.fat}</TableCell>
+                  <TableCell align="right">{row.destination_ip}</TableCell>
                   <TableCell>
-                    <OrderStatus status={row.carbs} />
+                    <OrderStatus status={row.ip_status} />
                   </TableCell>
                   <TableCell align="right">
-                    <NumericFormat value={row.protein} displayType="text" thousandSeparator />
+                    <NumericFormat value={row.protocol} displayType="text" thousandSeparator />
                   </TableCell>
                 </TableRow>
               );

@@ -21,19 +21,24 @@ export default function DashboardDefault() {
   const [totalThreat, setTotalThreat] = useState(0);
   const [weeklyAttack, setWeeklyAttack] = useState(0);
   const [barChart, setBarChart] = useState([10, 5, 20, 2, 65, 55, 78]);
-  function createData(tracking_no, name, fat, carbs, protein) {
-    return { tracking_no, name, fat, carbs, protein };
+  function createData(tracking_no, name, destination_ip, ip_status, protocol) {
+    return { tracking_no, name, destination_ip, ip_status, protocol };
   }
 
-  const [tableRows, setTableRows] = useState([
-    createData(84564564, '192.35.2.1', '192.40.2.1', 2, 6),
-    createData(98756325, '192.35.2.1', '192.40.2.1', 1, 4),
-    createData(98652366, '192.35.2.1', '192.40.2.1', 1, 2),
-    createData(13286564, '192.35.2.1', '192.40.2.1', 1, 2),
-    createData(13256498, '192.35.2.1', '192.40.2.1', 2, 1),
-    createData(98753263, '192.35.2.1', '192.40.2.1', 2, 5),
-    createData(98753275, '192.35.2.1', '192.40.2.1', 1, 7),
+  const [tableRowsData, setTableRowsData] = useState([
+    ['84564564', '192.35.2.1', '192.40.2.1', '2', '6'],
+    ['98756325', '192.35.2.1', '192.40.2.1', '0', '4'],
+    ['98652366', '192.35.2.1', '192.40.2.1', '1', '2'],
+    ['13286564', '192.35.2.1', '192.40.0.1', '1', '2'],
+    ['13256498', '192.35.2.1', '192.40.2.1', '2', '1'],
+    ['98753263', '192.35.2.1', '192.40.2.1', '2', '5'],
+    ['98753275', '192.35.2.1', '192.40.2.1', '1', '7'],
   ]);
+
+  const [tableRows, setTableRows] = useState(
+    tableRowsData.map(row => createData(...row))
+  );
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -47,7 +52,9 @@ export default function DashboardDefault() {
         setTotalThreat(data.totalThreat);
         setWeeklyAttack(data.weeklyAttack);
         setBarChart(data.barChart);
-        setTableRows(data.tableRows);
+        setTableRows(
+          data.flowReport.map(row => createData(...row))
+        );
       } catch (error) {
         console.log('Error fetching data:', error);
       }
