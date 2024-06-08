@@ -1,56 +1,56 @@
-import { lazy } from 'react';
-
-// project import
+import React, { lazy } from 'react';
+import { Navigate } from 'react-router-dom';
 import Loadable from 'components/Loadable';
 import Dashboard from 'layout/Dashboard';
+import PrivateRoute from './PrivateRoute';
 
-const Color = Loadable(lazy(() => import('pages/component-overview/color')));
-const Typography = Loadable(lazy(() => import('pages/component-overview/typography')));
+// Lazy loading components
+const ApprovedUsers = Loadable(lazy(() => import('pages/component-overview/approvedUsers')));
+const PendingUsers = Loadable(lazy(() => import('pages/component-overview/pendingUsers')));
 const Shadow = Loadable(lazy(() => import('pages/component-overview/shadows')));
 const DashboardDefault = Loadable(lazy(() => import('pages/dashboard/index')));
 
-// render - sample page
-const SamplePage = Loadable(lazy(() => import('pages/extra-pages/ip-List')));
+// Render - sample page
+const IPList = Loadable(lazy(() => import('pages/extra-pages/ip-List')));
 const Blacklist = Loadable(lazy(() => import('pages/extra-pages/blacklist')));
 
-// ==============================|| MAIN ROUTING ||============================== //
-
+// Main Routing
 const MainRoutes = {
   path: '/',
   element: <Dashboard />,
   children: [
     {
       path: '/',
-      element: <DashboardDefault />
+      element: <PrivateRoute element={<DashboardDefault />} />
     },
     {
-      path: 'color',
-      element: <Color />
+      path: 'approvedUsers',
+      element: <PrivateRoute element={<ApprovedUsers />} />
     },
     {
       path: 'dashboard',
       children: [
         {
           path: 'default',
-          element: <DashboardDefault />
+          element: <PrivateRoute element={<DashboardDefault />} />
         }
       ]
     },
     {
       path: 'ip-List',
-      element: <SamplePage />
+      element: <PrivateRoute element={<IPList />} />
     },
     {
       path: 'blacklist',
-      element: <Blacklist />
+      element: <PrivateRoute element={<Blacklist />} />
     },
     {
       path: 'shadow',
-      element: <Shadow />
+      element: <PrivateRoute element={<Shadow />} />
     },
     {
-      path: 'typography',
-      element: <Typography />
+      path: 'pendingUsers',
+      element: <PrivateRoute element={<PendingUsers />} />
     }
   ]
 };

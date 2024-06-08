@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { useContext } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
@@ -28,9 +29,16 @@ import AnimateButton from 'components/@extended/AnimateButton';
 // assets
 import EyeOutlined from '@ant-design/icons/EyeOutlined';
 import EyeInvisibleOutlined from '@ant-design/icons/EyeInvisibleOutlined';
+import { AuthContext } from '../auth-context';
 // ============================|| JWT - LOGIN ||============================ //
 
 export default function AuthLogin({ isDemo = false }) {
+  const { isAuthenticated, user, login, logout } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    logout();
+  };
+
   const navigate = useNavigate();
   const [checked, setChecked] = React.useState(false);
 
@@ -57,6 +65,11 @@ export default function AuthLogin({ isDemo = false }) {
         })}
         onSubmit={async (values) => {
           if (values.email == 'fatumaabayneh093@gmail.com' && values.password == '123') {
+            const user = {
+              name: 'Fatuma Abayneh',
+              password: '123',
+            };
+            login(user);
             navigate('/dashboard/default');
           }
           else {

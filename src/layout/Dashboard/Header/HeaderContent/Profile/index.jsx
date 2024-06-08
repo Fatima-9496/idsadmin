@@ -29,6 +29,8 @@ import LogoutOutlined from '@ant-design/icons/LogoutOutlined';
 import SettingOutlined from '@ant-design/icons/SettingOutlined';
 import UserOutlined from '@ant-design/icons/UserOutlined';
 import avatar1 from 'assets/images/users/avatar-1.png';
+import { AuthContext } from 'pages/authentication/auth-context';
+import React, { useContext } from 'react';
 
 // tab panel wrapper
 function TabPanel({ children, value, index, ...other }) {
@@ -49,6 +51,7 @@ function a11yProps(index) {
 // ==============================|| HEADER CONTENT - PROFILE ||============================== //
 
 export default function Profile() {
+  const { isAuthenticated, user, logout } = useContext(AuthContext);
   const theme = useTheme();
 
   const anchorRef = useRef(null);
@@ -91,7 +94,7 @@ export default function Profile() {
         <Stack direction="row" spacing={1.25} alignItems="center" sx={{ p: 0.5 }}>
           <Avatar alt="profile user" src={avatar1} size="sm" />
           <Typography variant="subtitle1" sx={{ textTransform: 'capitalize' }}>
-            Fatima Abayneh
+            {user && user.name}
           </Typography>
         </Stack>
       </ButtonBase>
@@ -124,19 +127,12 @@ export default function Profile() {
                         <Stack direction="row" spacing={1.25} alignItems="center">
                           <Avatar alt="profile user" src={avatar1} sx={{ width: 42, height: 42 }} />
                           <Stack>
-                            <Typography variant="h6">Fatima Abayneh</Typography>
+                            <Typography variant="h6">{user && user.name}</Typography>
                             <Typography variant="body2" color="text.secondary">
 
                             </Typography>
                           </Stack>
                         </Stack>
-                      </Grid>
-                      <Grid item>
-                        <Tooltip title="Logout">
-                          <IconButton size="large" sx={{ color: 'text.primary' }}>
-                            <LogoutOutlined />
-                          </IconButton>
-                        </Tooltip>
                       </Grid>
                     </Grid>
                   </CardContent>

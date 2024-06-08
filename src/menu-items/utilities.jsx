@@ -29,14 +29,14 @@ const utilities = {
       id: 'util-typography',
       title: 'Pending users',
       type: 'item',
-      url: '/typography',
+      url: '/pendingUsers',
       icon: icons.FontSizeOutlined
     },
     {
       id: 'util-color',
       title: 'Approved users',
       type: 'item',
-      url: '/color',
+      url: '/approvedUsers',
       icon: icons.BgColorsOutlined
     }
   ]
