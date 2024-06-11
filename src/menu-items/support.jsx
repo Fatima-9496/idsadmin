@@ -7,7 +7,7 @@ const icons = {
   QuestionOutlined
 };
 
-// ==============================|| MENU ITEMS - SAMPLE PAGE & DOCUMENTATION ||============================== //
+// || MENU ITEMS - SAMPLE PAGE & DOCUMENTATION ||    //
 
 const support = {
   id: 'support',
@@ -18,15 +18,14 @@ const support = {
       id: 'ip-List',
       title: 'List of IP',
       type: 'item',
-      url: '/ip-List',
-      icon: icons.ChromeOutlined
+      url: '/ip-List'
     },
     {
       id: 'blacklist',
       title: 'Blacklist',
       type: 'item',
-      url: '/blacklist',
-      icon: icons.QuestionOutlined
+      url: '/blacklist'
+
     }
   ]
 };

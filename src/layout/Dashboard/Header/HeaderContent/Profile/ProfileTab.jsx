@@ -14,7 +14,7 @@ import LogoutOutlined from '@ant-design/icons/LogoutOutlined';
 import { Navigate } from 'react-router-dom';
 import { AuthContext } from 'pages/authentication/auth-context';
 
-// ==============================|| HEADER PROFILE - PROFILE TAB ||============================== //
+// || HEADER PROFILE - PROFILE TAB ||    //
 
 export default function ProfileTab() {
   const { isAuthenticated, user, login, logout } = useContext(AuthContext);

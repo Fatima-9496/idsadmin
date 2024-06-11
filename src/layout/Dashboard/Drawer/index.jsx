@@ -13,7 +13,7 @@ import MiniDrawerStyled from './MiniDrawerStyled';
 import { drawerWidth } from 'config';
 import { handlerDrawerOpen, useGetMenuMaster } from 'api/menu';
 
-// ==============================|| MAIN LAYOUT - DRAWER ||============================== //
+// || MAIN LAYOUT - DRAWER ||    //
 
 export default function MainDrawer({ window }) {
   const { menuMaster } = useGetMenuMaster();

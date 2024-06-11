@@ -30,7 +30,7 @@ import AnimateButton from 'components/@extended/AnimateButton';
 import EyeOutlined from '@ant-design/icons/EyeOutlined';
 import EyeInvisibleOutlined from '@ant-design/icons/EyeInvisibleOutlined';
 import { AuthContext } from '../auth-context';
-// ============================|| JWT - LOGIN ||============================ //
+//                             || JWT - LOGIN ||                             //
 
 export default function AuthLogin({ isDemo = false }) {
   const { isAuthenticated, user, login, logout } = useContext(AuthContext);
@@ -75,24 +75,7 @@ export default function AuthLogin({ isDemo = false }) {
           else {
             alert('Invalid credentials');
           }
-          // try {
-          //   const response = await fetch('http://localhost:3000/login', {
-          //     method: 'POST',
-          //     headers: {
-          //       'Content-Type': 'application/json'
-          //     },
-          //     body: JSON.stringify(values)
-          //   });
-          //   const data = await response.json();
-          //   if (data.success) {
-          //     const navigate = useNavigate();
-          //     navigate('/dashboard');
-          //   } else {
-          //     alert('Invalid credentials');
-          //   }
-          // } catch (error) {
-          //   alert('An error occurred. Please try again later.');
-          // }
+
         }}
       >
         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
@@ -168,9 +151,7 @@ export default function AuthLogin({ isDemo = false }) {
                     }
                     label={<Typography variant="h6">Keep me sign in</Typography>}
                   />
-                  {/* <Link variant="h6" component={RouterLink} color="text.primary">
-                    Forgot Password?
-                  </Link> */}
+
                 </Stack>
               </Grid>
               {errors.submit && (

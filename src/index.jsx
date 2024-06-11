@@ -33,7 +33,7 @@ import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-// ==============================|| MAIN - REACT DOM RENDER ||============================== //
+// || MAIN - REACT DOM RENDER ||    //
 
 root.render(<App />);
 

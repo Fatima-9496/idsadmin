@@ -6,7 +6,7 @@ const icons = {
   DashboardOutlined
 };
 
-// ==============================|| MENU ITEMS - DASHBOARD ||============================== //
+// || MENU ITEMS - DASHBOARD ||    //
 
 const dashboard = {
   id: 'group-dashboard',
@@ -18,10 +18,10 @@ const dashboard = {
       title: 'Dashboard',
       type: 'item',
       url: '/dashboard/default',
-      icon: icons.DashboardOutlined,
+
       breadcrumbs: false
-     }
-    ]
+    }
+  ]
 };
 
 export default dashboard;

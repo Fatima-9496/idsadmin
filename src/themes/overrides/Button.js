@@ -78,7 +78,7 @@ function getColorStyle({ variant, color, theme }) {
   }
 }
 
-// ==============================|| OVERRIDES - BUTTON ||============================== //
+// || OVERRIDES - BUTTON ||    //
 
 export default function Button(theme) {
   const primaryDashed = getColorStyle({ variant: 'dashed', color: 'primary', theme });

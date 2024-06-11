@@ -7,7 +7,7 @@ import {
   FontSizeOutlined,
   LoadingOutlined
 } from '@ant-design/icons';
-
+import { ChromeOutlined, QuestionOutlined } from '@ant-design/icons';
 // icons
 const icons = {
   FontSizeOutlined,
@@ -18,7 +18,7 @@ const icons = {
   AppstoreAddOutlined
 };
 
-// ==============================|| MENU ITEMS - UTILITIES ||============================== //
+// || MENU ITEMS - UTILITIES ||    //
 
 const utilities = {
   id: 'utilities',
@@ -29,15 +29,15 @@ const utilities = {
       id: 'util-typography',
       title: 'Pending users',
       type: 'item',
-      url: '/pendingUsers',
-      icon: icons.FontSizeOutlined
+      url: '/pendingUsers'
+
     },
     {
       id: 'util-color',
       title: 'Approved users',
       type: 'item',
-      url: '/approvedUsers',
-      icon: icons.BgColorsOutlined
+      url: '/approvedUsers'
+
     }
   ]
 };

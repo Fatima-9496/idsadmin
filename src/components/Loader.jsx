@@ -14,7 +14,7 @@ const LoaderWrapper = styled('div')(({ theme }) => ({
   }
 }));
 
-// ==============================|| Loader ||============================== //
+// || Loader ||    //
 
 const Loader = () => (
   <LoaderWrapper>

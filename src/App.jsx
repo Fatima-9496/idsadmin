@@ -8,7 +8,7 @@ import ThemeCustomization from 'themes';
 import ScrollTop from 'components/ScrollTop';
 import { AuthProvider } from 'pages/authentication/auth-context';
 
-// ==============================|| APP - THEME, ROUTER, LOCAL ||============================== //
+// || APP - THEME, ROUTER, LOCAL ||    //
 
 export default function App() {
   return (

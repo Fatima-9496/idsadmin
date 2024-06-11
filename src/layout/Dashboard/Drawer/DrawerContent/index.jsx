@@ -3,7 +3,7 @@
 import Navigation from './Navigation';
 import SimpleBar from 'components/third-party/SimpleBar';
 
-// ==============================|| DRAWER CONTENT ||============================== //
+// || DRAWER CONTENT ||    //
 
 export default function DrawerContent() {
   return (

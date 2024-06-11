@@ -1,4 +1,4 @@
-// ==============================|| DEFAULT THEME - TYPOGRAPHY ||============================== //
+// || DEFAULT THEME - TYPOGRAPHY ||    //
 
 export default function Typography(fontFamily) {
   return {

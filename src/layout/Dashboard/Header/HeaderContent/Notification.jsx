@@ -47,17 +47,17 @@ const actionSX = {
   transform: 'none'
 };
 
-// ==============================|| HEADER CONTENT - NOTIFICATION ||============================== //
+// || HEADER CONTENT - NOTIFICATION ||    //
 
 export default function Notification() {
   const theme = useTheme();
   const matchesXs = useMediaQuery(theme.breakpoints.down('md'));
 
   const sampleNotifications = [
-    { id: 1, title: 'New threat IP', time:'2:25 PM', date:'June 22, 2024'},
-    { id: 2, title: 'New pending user', time:'10:40 AM', date:'June 15, 2024'},
-    { id: 3, title: 'New pending user', time:'10:40 AM', date:'June 15, 2024'},
-    { id: 4, title: 'New threat IP', time:'2:25 PM', date:'June 22, 2024'},
+    { id: 1, title: 'New threat IP', time: '2:25 PM', date: 'June 22, 2024' },
+    { id: 2, title: 'New pending user', time: '10:40 AM', date: 'June 15, 2024' },
+    { id: 3, title: 'New pending user', time: '10:40 AM', date: 'June 15, 2024' },
+    { id: 4, title: 'New threat IP', time: '2:25 PM', date: 'June 22, 2024' },
   ];
   const anchorRef = useRef(null);
   const [read, setRead] = useState(sampleNotifications.length);
@@ -144,32 +144,32 @@ export default function Notification() {
                       }
                     }}
                   >
-                  {
-                    notifications.map((row, index) => {
-                      return (
-                        <>
-                        <ListItemButton selected={read > 0}>
-                          <ListItemAvatar>
+                    {
+                      notifications.map((row, index) => {
+                        return (
+                          <>
+                            <ListItemButton selected={read > 0}>
+                              {/* <ListItemAvatar>
                             <Avatar sx={{ color: 'error.main', bgcolor: 'error.lighter' }}>
                               <SettingOutlined />
                             </Avatar>
-                          </ListItemAvatar>
-                          <ListItemText
-                            primary={<Typography variant="h6">
-                              {row.title}
-                            </Typography>}
-                            secondary={row.date} />
-                          <ListItemSecondaryAction>
-                            <Typography variant="caption" noWrap>
-                              {row.time}
-                            </Typography>
-                          </ListItemSecondaryAction>
-                        </ListItemButton>
-                        <Divider />
-                        </>
-                      );
-                    }
-                  )}
+                          </ListItemAvatar> */}
+                              <ListItemText
+                                primary={<Typography variant="h6">
+                                  {row.title}
+                                </Typography>}
+                                secondary={row.date} />
+                              <ListItemSecondaryAction>
+                                <Typography variant="caption" noWrap>
+                                  {row.time}
+                                </Typography>
+                              </ListItemSecondaryAction>
+                            </ListItemButton>
+                            <Divider />
+                          </>
+                        );
+                      }
+                      )}
                     <ListItemButton sx={{ textAlign: 'center', py: `${12}px !important` }}>
                       <ListItemText
                         primary={

@@ -15,7 +15,7 @@ import {
   // UnorderedListOutlined
 } from '@ant-design/icons';
 
-// ==============================|| HEADER PROFILE - SETTING TAB ||============================== //
+// || HEADER PROFILE - SETTING TAB ||    //
 
 export default function SettingTab() {
   const [selectedIndex, setSelectedIndex] = useState(0);

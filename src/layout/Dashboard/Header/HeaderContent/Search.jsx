@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 // assets
 // import SearchOutlined from '@ant-design/icons/SearchOutlined';
 
-// ==============================|| HEADER CONTENT - SEARCH ||============================== //
+// || HEADER CONTENT - SEARCH ||    //
 
 export default function Search() {
   return (

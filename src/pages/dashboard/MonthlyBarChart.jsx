@@ -42,7 +42,7 @@ const barChartOptions = {
   }
 };
 
-// ==============================|| MONTHLY BAR CHART ||============================== //
+// || MONTHLY BAR CHART ||    //
 
 export default function MonthlyBarChart(props) {
   const theme = useTheme();

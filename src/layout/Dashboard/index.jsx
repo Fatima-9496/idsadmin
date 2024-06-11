@@ -15,7 +15,7 @@ import Breadcrumbs from 'components/@extended/Breadcrumbs';
 
 import { handlerDrawerOpen, useGetMenuMaster } from 'api/menu';
 
-// ==============================|| MAIN LAYOUT ||============================== //
+// || MAIN LAYOUT ||    //
 
 export default function DashboardLayout() {
   const { menuMasterLoading } = useGetMenuMaster();

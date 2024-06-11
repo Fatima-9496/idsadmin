@@ -13,7 +13,7 @@ import MobileSection from './MobileSection';
 // project import
 // import { GithubOutlined } from '@ant-design/icons';
 
-// ==============================|| HEADER - CONTENT ||============================== //
+// || HEADER - CONTENT ||    //
 
 export default function HeaderContent() {
   const downLG = useMediaQuery((theme) => theme.breakpoints.down('lg'));

@@ -39,7 +39,7 @@ function getColorStyle({ theme, color, type }) {
   }
 }
 
-// ==============================|| AVATAR - SIZE STYLE ||============================== //
+// || AVATAR - SIZE STYLE ||    //
 
 function getSizeStyle(size) {
   switch (size) {

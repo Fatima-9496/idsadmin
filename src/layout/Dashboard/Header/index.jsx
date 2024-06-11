@@ -17,7 +17,7 @@ import { handlerDrawerOpen, useGetMenuMaster } from 'api/menu';
 import MenuFoldOutlined from '@ant-design/icons/MenuFoldOutlined';
 import MenuUnfoldOutlined from '@ant-design/icons/MenuUnfoldOutlined';
 
-// ==============================|| MAIN LAYOUT - HEADER ||============================== //
+// || MAIN LAYOUT - HEADER ||    //
 
 export default function Header() {
   const theme = useTheme();

@@ -1,4 +1,4 @@
-// ==============================|| OVERRIDES - TABLE CELL ||============================== //
+// || OVERRIDES - TABLE CELL ||    //
 
 export default function TableCell(theme) {
   const commonCell = {

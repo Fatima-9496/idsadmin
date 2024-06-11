@@ -7,7 +7,7 @@ import { useTheme } from '@mui/material/styles';
 import DrawerHeaderStyled from './DrawerHeaderStyled';
 import Logo from 'components/logo';
 
-// ==============================|| DRAWER HEADER ||============================== //
+// || DRAWER HEADER ||    //
 
 export default function DrawerHeader({ open }) {
   const theme = useTheme();

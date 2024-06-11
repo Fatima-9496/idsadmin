@@ -37,7 +37,7 @@ const SimpleBarStyle = styled(SimpleBar)(({ theme }) => ({
   }
 }));
 
-// ==============================|| SIMPLE SCROLL BAR ||============================== //
+// || SIMPLE SCROLL BAR ||    //
 
 export default function SimpleBarScroll({ children, sx, ...other }) {
   return (

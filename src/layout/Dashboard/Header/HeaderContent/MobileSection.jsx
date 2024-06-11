@@ -18,7 +18,7 @@ import Transitions from 'components/@extended/Transitions';
 // assets
 import MoreOutlined from '@ant-design/icons/MoreOutlined';
 
-// ==============================|| HEADER CONTENT - MOBILE ||============================== //
+// || HEADER CONTENT - MOBILE ||    //
 
 export default function MobileSection() {
   const theme = useTheme();

@@ -9,7 +9,7 @@ import { useTheme } from '@mui/material/styles';
  *
  */
 
-// ==============================|| LOGO SVG ||============================== //
+// || LOGO SVG ||    //
 
 const Logo = () => {
   const theme = useTheme();

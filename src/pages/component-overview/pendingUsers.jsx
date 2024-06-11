@@ -92,7 +92,7 @@ const headCells = [
   }
 ];
 
-// ==============================|| ORDER TABLE - HEADER ||============================== //
+// || ORDER TABLE - HEADER ||    //
 
 function OrderTableHead({ order, orderBy }) {
   return (
@@ -143,7 +143,7 @@ function OrderStatus({ status }) {
   );
 }
 
-// ==============================|| ORDER TABLE ||============================== //
+// || ORDER TABLE ||    //
 
 export default function OrderTable() {
   const order = 'asc';

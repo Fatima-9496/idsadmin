@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 
-// ==============================|| MINIMAL LAYOUT ||============================== //
+// || MINIMAL LAYOUT ||    //
 
 export default function MinimalLayout() {
   return (

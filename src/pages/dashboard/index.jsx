@@ -7,12 +7,12 @@ import { Navigate } from 'react-router-dom';
 
 // project import
 import MainCard from 'components/MainCard';
-import AnalyticEcommerce from 'components/cards/statistics/AnalyticEcommerce';
+import AnalyticReport from 'components/cards/statistics/AnalyticReport';
 import MonthlyBarChart from './MonthlyBarChart';
 import OrdersTable from './OrdersTable';
 import { useEffect, useState } from 'react';
 
-// ==============================|| DASHBOARD - DEFAULT ||============================== //
+// || DASHBOARD - DEFAULT ||    //
 
 export default function DashboardDefault() {
 
@@ -70,13 +70,13 @@ export default function DashboardDefault() {
         <Typography variant="h5">Dashboard</Typography>
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={4}>
-        <AnalyticEcommerce title="Total Flow Rate" count={totalFlow} />
+        <AnalyticReport title="Total Flow Rate" count={totalFlow} />
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={4}>
-        <AnalyticEcommerce title="Total Users" count={totalUser} />
+        <AnalyticReport title="Total Users" count={totalUser} />
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={4}>
-        <AnalyticEcommerce title="Total Threat Count" count={totalThreat} isLoss color="warning" />
+        <AnalyticReport title="Total Threat Count" count={totalThreat} isLoss color="warning" />
       </Grid>
 
       <Grid item md={8} sx={{ display: { sm: 'none', md: 'block', lg: 'none' } }} />
@@ -109,10 +109,10 @@ export default function DashboardDefault() {
         <MainCard sx={{ mt: 2 }} content={false}>
           <Box sx={{ p: 3, pb: 0 }}>
             <Stack spacing={2}>
-              <Typography variant="h6" color="text.secondary">
+              {/* <Typography variant="h6" color="text.secondary">
                 This Week Statistics
-              </Typography>
-              <Typography variant="h3">{weeklyAttack}</Typography>
+              </Typography> */}
+              {/* <Typography variant="h3">{weeklyAttack}</Typography> */}
             </Stack>
           </Box>
           <MonthlyBarChart

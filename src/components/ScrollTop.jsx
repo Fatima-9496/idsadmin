@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 
-// ==============================|| NAVIGATION - SCROLL TO TOP ||============================== //
+// || NAVIGATION - SCROLL TO TOP ||    //
 
 const ScrollTop = ({ children }) => {
   useEffect(() => {

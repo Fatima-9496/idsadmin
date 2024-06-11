@@ -10,11 +10,11 @@ import Chip from '@mui/material/Chip';
 import Logo from './LogoMain';
 import config from 'config';
 
-// ==============================|| MAIN LOGO ||============================== //
+// || MAIN LOGO ||    //
 
 const LogoSection = ({ sx, to }) => {
   return (
-    <ButtonBase disableRipple component={Link} to={!to ? config.defaultPath : to} sx={sx}>
+    <ButtonBase disableRipple component={Link} to={!to ? '/dashboard' : to} sx={sx}>
       <Stack direction="row" spacing={1} alignItems="center">
         <img src="../src/assets/images/logo.png" alt="Logos" width={40} height={40} />
         <Typography variant="h4" color="secondary" sx={{ mt: 0.5 }}>

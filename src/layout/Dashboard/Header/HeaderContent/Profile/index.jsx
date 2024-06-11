@@ -48,7 +48,7 @@ function a11yProps(index) {
   };
 }
 
-// ==============================|| HEADER CONTENT - PROFILE ||============================== //
+// || HEADER CONTENT - PROFILE ||    //
 
 export default function Profile() {
   const { isAuthenticated, user, logout } = useContext(AuthContext);
